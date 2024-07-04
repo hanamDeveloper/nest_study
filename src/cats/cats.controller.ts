@@ -3,6 +3,8 @@ import {
   Delete,
   Get,
   HttpException,
+  Param,
+  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -23,8 +25,9 @@ export class CatsController {
   }
 
   @Get(':id')
-  getCat() {
-    throw new HttpException('api is broken2', 402);
+  getCat(@Param('id', ParseIntPipe) param) {
+    console.log(param)
+    
     return 'one cat';
   }
 
