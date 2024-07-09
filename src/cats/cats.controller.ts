@@ -1,10 +1,8 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
-  HttpException,
-  Param,
-  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -14,6 +12,7 @@ import {
 import { CatsService } from './cats.service';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
+import { CatRequestDto } from './dto/cats.request.dto';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -22,23 +21,14 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Get()
-  getAllCat() {
-    throw new HttpException('api is broken', 402);
-    return 'all cat';
-  }
-
-  @Get(':id')
-  getCat(@Param('id', ParseIntPipe) param: number) {
-    console.log(param)
-    
-    return {
-      cats: 'success one cat'
-    };
+  getCurrentcat() {
+    return 'currnet cat';
   }
 
   @Post()
-  createCat() {
-    return 'create cat';
+  async signUp(@Body() body: CatRequestDto) {
+    console.log("body", body)
+    return await this.catsService.signUp(body);
   }
 
   @Put(':id')
