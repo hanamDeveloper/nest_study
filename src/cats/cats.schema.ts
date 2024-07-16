@@ -5,6 +5,8 @@ import { Document } from 'mongoose';
 
 const options: SchemaOptions = {
   timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
 };
 
 @Schema(options)

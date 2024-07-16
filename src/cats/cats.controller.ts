@@ -20,6 +20,7 @@ import { ReadOnlyCatDto } from './dto/cat.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -33,8 +34,8 @@ export class CatsController {
   @ApiOperation({ summary: '고양이 가져오기' })
   @Get()
   @UseGuards(JwtAuthGuard)
-  getCurrentcat(@Req() req) {
-    return 'currnet cat';
+  getCurrentCat(@CurrentUser() cat) {
+    return cat;
   }
 
   @ApiResponse({
